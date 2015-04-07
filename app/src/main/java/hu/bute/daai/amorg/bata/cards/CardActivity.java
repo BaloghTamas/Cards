@@ -15,12 +15,16 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import hu.bute.daai.amorg.bata.cards.adapter.CityAdapter;
 import hu.bute.daai.amorg.bata.cards.model.City;
 import hu.bute.daai.amorg.bata.cards.swipe.SwipeDismissRecyclerViewTouchListener;
 
 public class CardActivity extends ActionBarActivity
 {
+    @InjectView(R.id.cardList) RecyclerView recyclerView;
+
     private List<City> citiesPredefined;
     private CityAdapter adapter;
     private ArrayList<City> citiesInList;
@@ -30,8 +34,8 @@ public class CardActivity extends ActionBarActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card);
+        ButterKnife.inject(this);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.cardList);
         recyclerView.setHasFixedSize(true);
         // Layout manager for vertical orientation
         LinearLayoutManager llm = new LinearLayoutManager(this);

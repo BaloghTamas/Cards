@@ -15,6 +15,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import hu.bute.daai.amorg.bata.cards.R;
 import hu.bute.daai.amorg.bata.cards.model.City;
 
@@ -22,6 +24,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 {
 
     private final Context context;
+    private final LayoutInflater inflater;
+
     private List<City> cities;
 
     private int lastPosition = -1;
@@ -30,6 +34,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     {
         this.cities = cities;
         this.context = context;
+        this.inflater = LayoutInflater.
+                from(context);
     }
 
     @Override
@@ -51,9 +57,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     @Override
     public CityViewHolder onCreateViewHolder(ViewGroup viewGroup, int i)
     {
-        View itemView = LayoutInflater.
-                from(viewGroup.getContext()).
-                inflate(R.layout.li_card, viewGroup, false);
+        View itemView = inflater.inflate(R.layout.li_card, viewGroup, false);
 
         return new CityViewHolder(itemView);
     }
@@ -79,16 +83,14 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
 
     public static class CityViewHolder extends RecyclerView.ViewHolder
     {
-        protected CardView card;
-        protected ImageView image;
-        protected TextView name;
+        @InjectView(R.id.image) ImageView image;
+        @InjectView(R.id.name) TextView name;
+        @InjectView(R.id.card_view) CardView card;
 
         public CityViewHolder(View v)
         {
             super(v);
-            card = (CardView) v.findViewById(R.id.card_view);
-            image = (ImageView) v.findViewById(R.id.image);
-            name = (TextView) v.findViewById(R.id.name);
+            ButterKnife.inject(this, v);
         }
     }
 
